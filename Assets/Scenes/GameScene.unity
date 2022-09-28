@@ -5090,7 +5090,6 @@ MonoBehaviour:
   walkParticle: {fileID: 317827133}
   animator: {fileID: 251145612}
   turnSpeed: 8
-  rangeAttack: 0
 --- !u!1 &778037855
 GameObject:
   m_ObjectHideFlags: 0
@@ -5624,6 +5623,7 @@ MonoBehaviour:
   bow: {fileID: 963194228}
   arrow_damage: 5
   arrow_hit_effect: {fileID: 100000, guid: f06e78284f831ae469c74624ab5d513b, type: 3}
+  animator: {fileID: 251145612}
 --- !u!4 &1567023109 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8596069091599015453, guid: 173714a73f076a840b4f1ff8346c674b, type: 3}
@@ -10699,7 +10699,6 @@ MonoBehaviour:
   walkParticle: {fileID: 2749362623041500227}
   animator: {fileID: 2749362623592354979}
   turnSpeed: 8
-  rangeAttack: 0
 --- !u!1001 &2749362623592354977
 PrefabInstance:
   m_ObjectHideFlags: 0

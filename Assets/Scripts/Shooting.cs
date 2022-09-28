@@ -13,15 +13,24 @@ public class Shooting : MonoBehaviour
 
     public GameObject arrow_hit_effect;
 
+    public Animator animator;
+
     void Start()
     {
-        
+        //animator.SetBool("rangeAttack", false);
     }
     
     void Update()
     {
         if (Input.GetMouseButtonDown(0)) // If press left mouse button
         {
+            
+            animator.SetBool("rangeAttack", true);
+            Debug.Log("Left Button Click");
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            Debug.Log("Left Button UnClick");
             RaycastHit hit_info;
             if (Physics.Raycast(bow.position, bow.forward, out hit_info))
             {
@@ -32,8 +41,9 @@ public class Shooting : MonoBehaviour
                 }
 
                 Instantiate(arrow_hit_effect, hit_info.point, Quaternion.LookRotation(hit_info.normal));
+                animator.SetBool("rangeAttack_Stop", true);
             }
+            
         }
     }
-
 }
