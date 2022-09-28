@@ -3,7 +3,38 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraControl : MonoBehaviour {
-    [Header("Settings")]
+
+    public float sensitivity = 100f;
+
+    public Transform player;
+    public Transform MainCamera;
+    public Transform bow;
+
+    float rotation_x = 0f;
+
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    private void Update()
+    {
+        // sensitivity - speed of mouse (rotation)
+        // Time.deltaTime - doesn't rotate quicker if frame rate is high
+        float mouse_x = Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime;
+        float mouse_y = Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
+
+        player.Rotate(Vector3.up * mouse_x);
+        bow.Rotate(Vector3.up * mouse_x);
+
+        rotation_x -= mouse_y;
+        rotation_x = Mathf.Clamp(rotation_x, -15f, 15f);
+        transform.localRotation = Quaternion.Euler(rotation_x, 0f, 0f);
+
+        bow.localRotation = Quaternion.Euler(rotation_x, 0f, 0f);
+    }
+
+    /*[Header("Settings")]
     public float distance = 5f;
     public float height = 2.5f;
     public float panSpeed = 90f;
@@ -32,5 +63,6 @@ public class CameraControl : MonoBehaviour {
         if (Input.GetKey(KeyCode.RightArrow)) {
             panAngle -= panSpeed * Time.deltaTime;
         }
-    }
+    }*/
+
 }
