@@ -32,6 +32,8 @@ public class PlayerControl : MonoBehaviour {
     private Collider col;
     private Transform camt;
 
+    public Shooting shooter;
+
     private void Start() {
         camt = FindObjectOfType<Camera>().transform;
         rigid = GetComponent<Rigidbody>();
@@ -116,6 +118,14 @@ public class PlayerControl : MonoBehaviour {
             moving = true;
         }
         rigid.MovePosition(transform.position + move.normalized * Time.deltaTime * moveSpeed);
+
+        if (shooter.shooting) {
+            Debug.Log(Mathf.DeltaAngle(camt.transform.rotation.eulerAngles.y, animator.transform.rotation.eulerAngles.y));
+            if (Mathf.Abs(Mathf.DeltaAngle(camt.transform.rotation.eulerAngles.y, animator.transform.rotation.eulerAngles.y)) > 100) {
+                Debug.Log("Fix rotations");
+                rotation = Quaternion.Euler(0, (int)camt.transform.rotation.eulerAngles.y / 45 * 45, 0);
+            }
+        }
     }
 
     //카메라 기준으로 앞과 우측 벡터를 계산해주는 함수
