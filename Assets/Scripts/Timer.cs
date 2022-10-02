@@ -12,6 +12,6 @@ public class Timer : MonoBehaviour
     void Update()
     {
         time += Time.deltaTime;
-        timeText.text = $"{time:N2}";
+        timeText.text = "Play Time : " + $"{time:N2}";
     }
 }

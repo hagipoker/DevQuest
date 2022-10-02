@@ -12,11 +12,12 @@ public class GameEnd : MonoBehaviour
     private float time;
     private float fin_time;
     public static float highscore;
-    public TextMeshProUGUI highscore_text;
+    public static float highscore_coin;
 
     void Start()
     {
         highscore = PlayerPrefs.GetFloat("highscore");
+        highscore_coin = PlayerPrefs.GetInt("highscore_coin");
     }
 
     void Update()
@@ -28,7 +29,6 @@ public class GameEnd : MonoBehaviour
             EndGame();
         }
         time += Time.deltaTime;
-        highscore_text.text = "Highscore : " + $"{(PlayerPrefs.GetFloat("highscore")):N2}";
     }
 
     void EndGame()
@@ -38,6 +38,12 @@ public class GameEnd : MonoBehaviour
         {
             PlayerPrefs.SetFloat("highscore", fin_time);
         }
+
+        if ((PlayerPrefs.GetInt("coins") > highscore_coin))
+        {
+            PlayerPrefs.SetInt("highscore_coin", PlayerPrefs.GetInt("coins"));
+        }
+        
         Cursor.lockState = CursorLockMode.None;
         SceneManager.LoadScene(1);
     }
