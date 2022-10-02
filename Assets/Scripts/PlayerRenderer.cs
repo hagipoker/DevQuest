@@ -25,7 +25,7 @@ public class PlayerRenderer : MonoBehaviour {
         animator.SetBool("rangeAttack", rangeAttack);
         animator.SetBool("rangeAttack_Stop", rangeAttack_Stop);
 
-        transform.rotation = Quaternion.Lerp(transform.rotation, pcon.rotation, Time.deltaTime * turnSpeed);
+        transform.rotation = Quaternion.Lerp(transform.rotation, pcon.shooter.shooting ? pcon.rotation * Quaternion.Euler(0, 90, 0) : pcon.rotation, Time.deltaTime * turnSpeed);
 
         if(pcon.landed && pcon.moving) {
             if (!isWalking) {

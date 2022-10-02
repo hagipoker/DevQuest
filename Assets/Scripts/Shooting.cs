@@ -17,11 +17,13 @@ public class Shooting : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0)) 
         {
+            shooting = true;
             Debug.Log("Left Button Click");
             animator.SetBool("rangeAttack", true);
         }
         if (Input.GetMouseButtonUp(0))
         {
+            shooting = false;
             Debug.Log("Left Button UnClick");
             RaycastHit hit_info;
             if (Physics.Raycast(bow.position, bow.forward, out hit_info))
