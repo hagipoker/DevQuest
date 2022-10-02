@@ -1,15 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class Coin : MonoBehaviour
 {
+    public CoinData coinData;
+    public Material material;
+
     public GameObject player;
     public GameObject coin;
     public int coins;
     private bool trigger = false;
     public TextMeshProUGUI n_coins;
+
+    void Start()
+    {
+        material = coinData.material;
+    }
 
     void OnTriggerEnter(Collider other)
     {
