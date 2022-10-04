@@ -13,7 +13,10 @@ public class PlayerControl : MonoBehaviour {
     public enum State {
         none,
         idle,
-        jump
+        jump,
+        StandToCrouch,
+        CrouchIdle,
+        CrouchToStand
     }
 
     [Header("Debug")]
@@ -59,11 +62,32 @@ public class PlayerControl : MonoBehaviour {
                         if (Input.GetKey(KeyCode.Space)) {
                             nextState = State.jump;
                         }
+                        else if (Input.GetKey(KeyCode.Z))
+                        {
+                            nextState = State.StandToCrouch;
+                        }
                     }
                     break;
+
                 case State.jump:
                     if (landed) nextState = State.idle;
                     break;
+                
+                case State.StandToCrouch:
+                    nextState = State.CrouchIdle;
+                    break;
+
+                case State.CrouchIdle:
+                    if (Input.GetKey(KeyCode.Z))
+                    {
+                        nextState = State.CrouchToStand;
+                    }
+                    break;
+
+                case State.CrouchToStand:
+                    nextState = State.idle;
+                    break;
+                
                 //insert code here...
             }
         }
@@ -80,6 +104,15 @@ public class PlayerControl : MonoBehaviour {
                     rigid.velocity = vel;
                     animator.Jump();
                     break;
+
+                case State.StandToCrouch:
+                    animator.Crouch();
+                    break;
+
+                case State.CrouchToStand:
+                    animator.UnCrouch();
+                    break;
+                    
                 //insert code here...
             }
             stateTime = 0f;
@@ -97,7 +130,7 @@ public class PlayerControl : MonoBehaviour {
         landed = Physics.CheckSphere(new Vector3(col.bounds.center.x, col.bounds.center.y - ((HEIGHT - 1f) / 2 + 0.15f), col.bounds.center.z), 0.45f, 1 << 6, QueryTriggerInteraction.Ignore);
     }
 
-    //WASD 인풋을 처리하는 함수
+    //WASD 인풋을 처리하는 함수 + Z
     private void UpdateInput() {
         Vector3 move = Vector3.zero;
         moving = false;
