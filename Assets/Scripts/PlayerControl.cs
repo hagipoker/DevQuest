@@ -16,7 +16,8 @@ public class PlayerControl : MonoBehaviour {
         jump,
         StandToCrouch,
         CrouchIdle,
-        CrouchToStand
+        CrouchToStand,
+        CrouchWalk
     }
 
     [Header("Debug")]
@@ -62,7 +63,7 @@ public class PlayerControl : MonoBehaviour {
                         if (Input.GetKey(KeyCode.Space)) {
                             nextState = State.jump;
                         }
-                        else if (Input.GetKey(KeyCode.Z))
+                        if (Input.GetKey(KeyCode.Z))
                         {
                             nextState = State.StandToCrouch;
                         }
@@ -82,13 +83,23 @@ public class PlayerControl : MonoBehaviour {
                     {
                         nextState = State.CrouchToStand;
                     }
+                    if (Input.GetKey(KeyCode.W) & Input.GetKey(KeyCode.A) & Input.GetKey(KeyCode.S) & Input.GetKey(KeyCode.D))
+                    {
+                        nextState = State.CrouchWalk;
+                    }
                     break;
 
                 case State.CrouchToStand:
                     nextState = State.idle;
                     break;
-                
-                //insert code here...
+
+                case State.CrouchWalk:
+                    if (!Input.GetKey(KeyCode.W) & !Input.GetKey(KeyCode.A) & !Input.GetKey(KeyCode.S) & !Input.GetKey(KeyCode.D))
+                    {
+                        nextState = State.CrouchIdle;
+                    }
+                    break;
+                    //insert code here...
             }
         }
 
