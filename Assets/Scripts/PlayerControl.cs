@@ -164,9 +164,9 @@ public class PlayerControl : MonoBehaviour {
         rigid.MovePosition(transform.position + move.normalized * Time.deltaTime * moveSpeed);
 
         if (shooter.shooting) {
-            Debug.Log(Mathf.DeltaAngle(camt.transform.rotation.eulerAngles.y, animator.transform.rotation.eulerAngles.y));
+            //Debug.Log(Mathf.DeltaAngle(camt.transform.rotation.eulerAngles.y, animator.transform.rotation.eulerAngles.y));
             if (Mathf.Abs(Mathf.DeltaAngle(camt.transform.rotation.eulerAngles.y, animator.transform.rotation.eulerAngles.y)) > 100) {
-                Debug.Log("Fix rotations");
+                //Debug.Log("Fix rotations");
                 rotation = Quaternion.Euler(0, (int)camt.transform.rotation.eulerAngles.y / 45 * 45, 0);
             }
         }

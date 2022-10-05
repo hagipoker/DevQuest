@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
+using System;
 
 public class Shooting : MonoBehaviour
 {
@@ -18,16 +19,18 @@ public class Shooting : MonoBehaviour
     public bool shooting = false;
 
     private bool SkillEnable = true;
+    public float cool_time = 10f;
+    public TextMeshProUGUI cool_time_text;
 
     IEnumerator CoolTime()
     {
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(cool_time);
         SkillEnable = true;
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)) 
+        if (Input.GetMouseButtonDown(0))
         {
             shooting = true;
             Debug.Log("Left Button Click");
@@ -48,7 +51,7 @@ public class Shooting : MonoBehaviour
                 Instantiate(arrow_hit_effect, hit_info.point, Quaternion.LookRotation(hit_info.normal));
                 animator.SetBool("rangeAttack_Stop", true);
             }
-            
+
         }
 
         if (Input.GetMouseButtonDown(1))
@@ -78,10 +81,21 @@ public class Shooting : MonoBehaviour
                     animator.SetBool("rangeAttack_Stop", true);
                 }
                 SkillEnable = false;
+
                 StartCoroutine(CoolTime());
                 // cool time이 있음을 알리는 text - 10부터 아래로 세기
                 // cool time이 지나면 skill을 사용할 수 있다는 text
             }
         }
+
+        if (!SkillEnable)
+        {
+            cool_time_text.text = "X";
+        }
+        else
+        {
+            cool_time_text.text = null;
+        }
     }
 }
+
