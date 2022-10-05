@@ -21,7 +21,7 @@ public class PlayerRenderer : MonoBehaviour {
     }
 
     private void Update() {
-        Debug.Log(isCrouching & isWalking);
+        //Debug.Log(isCrouching & isWalking);
 
         animator.SetBool("walking", isWalking);
         animator.SetBool("landed", pcon.landed);

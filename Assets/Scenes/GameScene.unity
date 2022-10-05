@@ -6177,7 +6177,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bow: {fileID: 963194228}
   arrow_damage: 5
+  skill_damage: 20
   arrow_hit_effect: {fileID: 100000, guid: f06e78284f831ae469c74624ab5d513b, type: 3}
+  skill_hit_effect: {fileID: 1975959190090480, guid: eca000ab44c908d4dab395f654753038, type: 3}
   animator: {fileID: 251145612}
   shooting: 0
 --- !u!4 &1567023109 stripped

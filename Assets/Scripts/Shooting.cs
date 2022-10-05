@@ -8,12 +8,22 @@ public class Shooting : MonoBehaviour
     public Transform bow;
 
     public float arrow_damage = 5f;
+    public float skill_damage = 20f;
 
     public GameObject arrow_hit_effect;
+    public GameObject skill_hit_effect;
 
     public Animator animator;
 
     public bool shooting = false;
+
+    private bool SkillEnable = true;
+
+    IEnumerator CoolTime()
+    {
+        yield return new WaitForSeconds(10f);
+        SkillEnable = true;
+    }
 
     void Update()
     {
@@ -37,11 +47,41 @@ public class Shooting : MonoBehaviour
                 }
                 Instantiate(arrow_hit_effect, hit_info.point, Quaternion.LookRotation(hit_info.normal));
                 animator.SetBool("rangeAttack_Stop", true);
-                // I couldn't make attacking animation smoothly, 
-                // so I added another boolean trigger called 'rangeAttack_Stop'.
-                // I want to know how I should have done.
             }
             
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            if (SkillEnable)
+            {
+                shooting = true;
+                Debug.Log("Right Button Click");
+                animator.SetBool("rangeAttack", true);
+            }
+        }
+        if (Input.GetMouseButtonUp(1))
+        {
+            if (SkillEnable)
+            {
+                shooting = false;
+                Debug.Log("Right Button UnClick");
+                RaycastHit hit_info;
+                if (Physics.Raycast(bow.position, bow.forward, out hit_info))
+                {
+                    Target target = hit_info.transform.GetComponent<Target>();
+                    if (target != null)
+                    {
+                        target.GetHit(skill_damage);
+                    }
+                    Instantiate(skill_hit_effect, hit_info.point, Quaternion.LookRotation(new Vector3(0, 0, 1)));
+                    animator.SetBool("rangeAttack_Stop", true);
+                }
+                SkillEnable = false;
+                StartCoroutine(CoolTime());
+                // cool time이 있음을 알리는 text - 10부터 아래로 세기
+                // cool time이 지나면 skill을 사용할 수 있다는 text
+            }
         }
     }
 }
