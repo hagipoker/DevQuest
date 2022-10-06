@@ -20,6 +20,7 @@ public class Shooting : MonoBehaviour
 
     private bool SkillEnable = true;
     public float cool_time = 10f;
+    private float time;
     public TextMeshProUGUI cool_time_text;
 
     IEnumerator CoolTime()
@@ -90,11 +91,14 @@ public class Shooting : MonoBehaviour
 
         if (!SkillEnable)
         {
-            cool_time_text.text = "X";
+            time -= Time.deltaTime;
+            cool_time_text.text = Convert.ToString(Mathf.FloorToInt(time));
         }
         else
         {
+            time = cool_time + 1f;
             cool_time_text.text = null;
+            SkillEnable = true;
         }
     }
 }
