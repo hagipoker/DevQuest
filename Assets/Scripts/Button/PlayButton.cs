@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Restart_Button : MonoBehaviour
+public class PlayButton : MonoBehaviour
 {
-    public void OnClickRestart()
+    public void OnClickPlay()
     {
         SceneManager.LoadScene(1);
     }
