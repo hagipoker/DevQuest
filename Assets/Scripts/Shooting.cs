@@ -6,6 +6,8 @@ using System;
 
 public class Shooting : MonoBehaviour
 {
+    public PlayerControl pcon;
+
     public Transform bow;
 
     public float arrow_damage = 5f;
@@ -22,6 +24,8 @@ public class Shooting : MonoBehaviour
     public float cool_time = 10f;
     private float time;
     public TextMeshProUGUI cool_time_text;
+
+    private bool leftDown = false, rightDown = false;
 
     IEnumerator CoolTime()
     {
@@ -40,16 +44,18 @@ public class Shooting : MonoBehaviour
 
     void Update()
     {
-        if (!home_menu.GamePaused && camera_control.CursorLocked)
+        if (!home_menu.GamePaused && camera_control.CursorLocked && pcon.landed)
         {
             if (Input.GetMouseButtonDown(0))
             {
+                leftDown = true;
                 shooting = true;
                 Debug.Log("Left Button Click");
                 animator.SetBool("rangeAttack", true);
             }
-            if (Input.GetMouseButtonUp(0))
+            if (Input.GetMouseButtonUp(0) && leftDown)
             {
+                leftDown = false;
                 shooting = false;
                 Debug.Log("Left Button UnClick");
                 RaycastHit hit_info;
@@ -70,6 +76,7 @@ public class Shooting : MonoBehaviour
             {
                 if (SkillEnable)
                 {
+                    rightDown = true;
                     shooting = true;
                     Debug.Log("Right Button Click");
                     animator.SetBool("rangeAttack", true);
@@ -77,8 +84,9 @@ public class Shooting : MonoBehaviour
             }
             if (Input.GetMouseButtonUp(1))
             {
-                if (SkillEnable)
+                if (SkillEnable & rightDown)
                 {
+                    rightDown = false;
                     shooting = false;
                     Debug.Log("Right Button UnClick");
                     RaycastHit hit_info;
